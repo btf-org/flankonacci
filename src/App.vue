@@ -15,7 +15,7 @@ export default defineComponent({
   },
   data: function(){
     return {
-      tree: {label: "root", nodes: [{label: "wee2", nodes: [{label: "wee3", nodes: [{label: "wee4", nodes: []}]}]}]}
+      tree: {label: "root", nodes: [{label: "wee2", nodes: [{label: "wee3", nodes: [{label: "wee4", nodes: []}]}]}, {label: 'wee2b', 'nodes': []}]}
     }
   }
 });
