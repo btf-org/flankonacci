@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <Tree :label="tree.label" :nodes="tree.nodes"></Tree>
+  <Tree :label="$store.state.tree.label" :nodes="$store.state.tree.nodes"></Tree>
   </div>
 </template>
 
@@ -13,11 +13,6 @@ export default defineComponent({
   components: {
     Tree,
   },
-  data: function(){
-    return {
-      tree: {label: "root", nodes: [{label: "wee2", nodes: [{label: "wee3", nodes: [{label: "wee4", nodes: []}]}]}, {label: 'wee2b', 'nodes': []}]}
-    }
-  }
 });
 </script>
 <style>
