@@ -4,11 +4,11 @@ import router from "./router";
 import "./index.css";
 
 import { createStore } from "vuex";
-import { node } from "./types";
+import { node, Tree } from "./types";
 
 const defaultState = () => {
   const idCount = 1;
-  const tree: node = {
+  const root: node = {
     containerClasses: [
       "text-red-500",
       "flex",
@@ -19,15 +19,18 @@ const defaultState = () => {
     itemClasses: [],
     label: "root",
     nodes: [],
+    depth: 0,
     id: idCount,
   };
-  const nodeLookup: { [key: number]: node } = {
-    1: tree,
-  };
+
+  const tree = new Tree(root);
+  // const nodeLookup: { [key: number]: node } = {
+  //   1: tree,
+  // };
   return {
     tree: tree,
     idCount: idCount,
-    nodeLookup: nodeLookup,
+    // nodeLookup: nodeLookup,
   };
 };
 
@@ -35,17 +38,10 @@ const store = createStore({
   state: defaultState(),
   mutations: {
     addChild(state, id: number) {
-      state.idCount++;
-      const parent: node = state.nodeLookup[id];
-      const newChild: node = {
-        label: "child",
-        nodes: [],
-        itemClasses: [],
-        containerClasses: [],
-        id: state.idCount,
-      };
-      parent.nodes.push(newChild);
-      state.nodeLookup[state.idCount] = newChild;
+      state.tree.addChild(id);
+    },
+    deleteNode(state, id: number) {
+      state.tree.deleteNode(id);
     },
   },
 });

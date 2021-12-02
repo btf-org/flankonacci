@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Node :node="$store.state.tree"></Node>
+    <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
 

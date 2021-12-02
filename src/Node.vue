@@ -2,6 +2,7 @@
   <div :class="['border-4', 'p-4'].concat(node.itemClasses)">
     <div>{{ node.label }}</div>
     <button @click="addChild">Add Child</button>
+    <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
     <div>
       Items:
       <span v-for="cls in node.itemClasses" :key="cls">
@@ -33,6 +34,10 @@ export default defineComponent({
     addChild() {
       // @ts-ignore
       this.$store.commit("addChild", this.node.id);
+    },
+    deleteNode() {
+      // @ts-ignore
+      this.$store.commit("deleteNode", this.node.id);
     },
   },
 });
