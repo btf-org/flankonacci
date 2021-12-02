@@ -1,24 +1,17 @@
 <template>
   <div id="app">
-    <Tree :node="$store.state.tree"></Tree>
-    <!-- <Tree
-      :label="$store.state.tree.label"
-      :nodes="$store.state.tree.nodes"
-      :containerClasses="$store.state.tree.containerClasses"
-      :itemClasses="$store.state.tree.itemClasses"
-      :node="$store.state.tree"
-    ></Tree> -->
+    <Node :node="$store.state.tree"></Node>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Tree from "./Tree.vue";
+import Node from "./Node.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
-    Tree,
+    Node,
   },
 });
 </script>

@@ -28,45 +28,6 @@ const defaultState = () => {
     tree: tree,
     idCount: idCount,
     nodeLookup: nodeLookup,
-    //  {
-    //   containerClasses: [
-    //     "text-red-500",
-    //     "flex",
-    //     "flex-row",
-    //     "flex-1",
-    //     "justify-center",
-    //   ],
-    //   itemClasses: [],
-    //   label: "root",
-    //   nodes: [],
-    //   {
-    //     itemClasses: ["flex-1"],
-    //     containerClasses: [],
-    //     label: "wee2",
-    //     nodes: [
-    //       {
-    //         containerClasses: "font-bold",
-    //         itemClasses: [],
-    //         label: "wee3",
-    //         nodes: [
-    //           {
-    //             itemClasses: [],
-    //             containerClasses: [],
-    //             label: "wee4",
-    //             nodes: [],
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     itemClasses: ["flex-1"],
-    //     containerClasses: [],
-    //     label: "wee2b",
-    //     nodes: [],
-    //   },
-    // ],
-    // },
   };
 };
 
