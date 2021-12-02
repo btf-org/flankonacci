@@ -1,15 +1,22 @@
 <template>
   <div id="app">
-  <Tree :label="$store.state.tree.label" :nodes="$store.state.tree.nodes" :clss="$store.state.tree.clss"></Tree>
+    <Tree :node="$store.state.tree"></Tree>
+    <!-- <Tree
+      :label="$store.state.tree.label"
+      :nodes="$store.state.tree.nodes"
+      :containerClasses="$store.state.tree.containerClasses"
+      :itemClasses="$store.state.tree.itemClasses"
+      :node="$store.state.tree"
+    ></Tree> -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Tree from '@/components/Tree.vue';
+import { defineComponent } from "vue";
+import Tree from "./Tree.vue";
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
     Tree,
   },
@@ -22,5 +29,4 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
 </style>
