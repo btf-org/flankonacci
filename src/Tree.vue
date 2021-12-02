@@ -14,17 +14,8 @@
         {{ cls }}
       </span>
     </div>
-    <div :class="containerClasses">
-      <Tree v-for="child in node.nodes" :key="child.label" :node="node"></Tree>
-      <!-- <Tree
-        v-for="child in node.nodes"
-        :key="child.label"
-        :label="child.label"
-        :nodes="child.nodes"
-        :containerClasses="child.containerClasses"
-        :itemClasses="child.itemClasses"
-        :node="node"
-      ></Tree> -->
+    <div :class="node.containerClasses">
+      <Tree v-for="child in node.nodes" :key="child.label" :node="child"></Tree>
     </div>
   </div>
 </template>
@@ -37,10 +28,6 @@ export default defineComponent({
   name: "Tree",
   props: {
     node: Object as () => node,
-    // label: String,
-    // nodes: [],
-    // containerClasses: [],
-    // itemClasses: [],
   },
   methods: {
     addChild() {
