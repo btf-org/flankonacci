@@ -32,7 +32,7 @@ export default defineComponent({
   methods: {
     addChild() {
       // @ts-ignore
-      this.$store.commit("addChild");
+      this.$store.commit("addChild", this.node.id);
     },
   },
 });

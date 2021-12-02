@@ -21,9 +21,13 @@ const defaultState = () => {
     nodes: [],
     id: idCount,
   };
+  const nodeLookup: { [key: number]: node } = {
+    1: tree,
+  };
   return {
     tree: tree,
     idCount: idCount,
+    nodeLookup: nodeLookup,
     //  {
     //   containerClasses: [
     //     "text-red-500",
@@ -69,15 +73,18 @@ const defaultState = () => {
 const store = createStore({
   state: defaultState(),
   mutations: {
-    addChild(state) {
+    addChild(state, id: number) {
       state.idCount++;
-      state.tree.nodes.push({
+      const parent: node = state.nodeLookup[id];
+      const newChild: node = {
         label: "child",
         nodes: [],
         itemClasses: [],
         containerClasses: [],
         id: state.idCount,
-      });
+      };
+      parent.nodes.push(newChild);
+      state.nodeLookup[state.idCount] = newChild;
     },
   },
 });
