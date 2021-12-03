@@ -4,23 +4,11 @@ import router from "./router";
 import "./index.css";
 
 import { createStore } from "vuex";
-import { node, Tree } from "./types";
+import { Tree } from "./types";
 
 const defaultState = () => {
-  const idCount = 1;
-  const root: node = {
-    containerClasses: new Set(["flex"]),
-    itemClasses: new Set(),
-    label: "root",
-    children: [],
-    depth: 0,
-    id: idCount,
-  };
-
-  const tree = new Tree(root);
   return {
-    tree: tree,
-    idCount: idCount,
+    tree: new Tree(),
   };
 };
 
@@ -34,14 +22,7 @@ const store = createStore({
       state.tree.addRow(payload.id);
     },
     deleteNode(state, id: number) {
-      const parent = state.tree.findParent(id);
-      console.log(parent);
-      state.tree.deleteNode(id);
-      if (parent.children.length == 0) {
-        console.log(parent.containerClasses);
-        parent.containerClasses.delete("flex-row");
-        parent.containerClasses.delete("flex-col");
-      }
+      state.tree.delete(id);
     },
   },
 });

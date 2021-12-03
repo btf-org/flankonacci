@@ -11,9 +11,16 @@ export class Tree {
   root: node;
   idCount: number;
 
-  constructor(root: node) {
-    this.root = root;
+  constructor() {
     this.idCount = 1;
+    this.root = {
+      containerClasses: new Set(["flex"]),
+      itemClasses: new Set(),
+      label: "root",
+      children: [],
+      depth: 0,
+      id: this.idCount,
+    };
   }
 
   find(id: number): node {
@@ -58,7 +65,15 @@ export class Tree {
     return null;
   }
 
-  deleteNode(id: number): void {
+  delete(id: number): void {
+    const parent = this.findParent(id);
+    this._deleteNode(id);
+    if (parent.children.length == 0) {
+      parent.containerClasses.delete("flex-row");
+      parent.containerClasses.delete("flex-col");
+    }
+  }
+  _deleteNode(id: number): void {
     this._deleteHelper(id, this.root);
   }
   _deleteHelper(id: number, node: node): boolean {
