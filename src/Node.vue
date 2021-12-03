@@ -1,11 +1,14 @@
 <template>
   <div
     :class="
-      [{ 'm-4': $store.state.showMargins }].concat(
+      [{ 'm-4': $store.state.showMargins }, 'relative'].concat(
         Array.from(new Set([...node.itemClasses, ...node.formattingClasses]))
       )
     "
   >
+    <div class="absolute top-0 right-0">
+      <button v-if="node.depth > 0" @click="deleteNode">D</button>
+    </div>
     <div>
       Items:
       <span v-for="cls in node.itemClasses.values()" :key="cls">
@@ -22,7 +25,6 @@
       <button @click="addRow">Add Row</button>
       <button @click="addColumn">Add Column</button>
     </div>
-    <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
     <div
       v-if="node.children.length > 0"
       :class="Array.from(node.containerClasses)"
