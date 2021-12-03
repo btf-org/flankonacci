@@ -10,7 +10,7 @@ const defaultState = () => {
   const idCount = 1;
   const root: node = {
     containerClasses: new Set(["flex"]),
-    itemClasses: [],
+    itemClasses: new Set(),
     label: "root",
     children: [],
     depth: 0,
