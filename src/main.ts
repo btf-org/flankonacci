@@ -28,28 +28,10 @@ const store = createStore({
   state: defaultState(),
   mutations: {
     addColumn(state, payload) {
-      state.tree.addChild(
-        payload.id,
-        payload.itemClasses,
-        payload.parentContainerClasses
-      );
-      state.tree.addChild(
-        payload.id,
-        payload.itemClasses,
-        payload.parentContainerClasses
-      );
+      state.tree.addCol(payload.id);
     },
     addRow(state, payload) {
-      state.tree.addChild(
-        payload.id,
-        payload.itemClasses,
-        payload.parentContainerClasses
-      );
-      state.tree.addChild(
-        payload.id,
-        payload.itemClasses,
-        payload.parentContainerClasses
-      );
+      state.tree.addRow(payload.id);
     },
     deleteNode(state, id: number) {
       const parent = state.tree.findParent(id);
