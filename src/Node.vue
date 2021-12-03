@@ -13,13 +13,17 @@
         {{ cls }}
       </span>
     </div>
-    <div v-if="node?.nodes.length == 0">
+    <div v-if="node?.children.length == 0">
       <button @click="addRow">Add Row</button>
       <button @click="addColumn">Add Column</button>
     </div>
     <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
     <div :class="node.containerClasses">
-      <Node v-for="child in node.nodes" :key="child.label" :node="child"></Node>
+      <Node
+        v-for="child in node.children"
+        :key="child.label"
+        :node="child"
+      ></Node>
     </div>
   </div>
 </template>

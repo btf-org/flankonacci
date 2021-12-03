@@ -2,7 +2,7 @@ export interface node {
   containerClasses: string[];
   itemClasses: string[];
   label: string;
-  nodes: node[];
+  children: node[];
   id: number;
   depth: number;
 }
@@ -28,7 +28,7 @@ export class Tree {
     if (node.id == id) {
       return node;
     }
-    for (const child of node.nodes) {
+    for (const child of node.children) {
       const res = this.findHelper(id, child);
       if (res != null) {
         return res;
@@ -46,10 +46,10 @@ export class Tree {
   }
 
   findParentHelper(id: number, node: node): node | null {
-    if (node.nodes.findIndex((e: node) => e.id == id) > -1) {
+    if (node.children.findIndex((e: node) => e.id == id) > -1) {
       return node;
     }
-    for (const child of node.nodes) {
+    for (const child of node.children) {
       const res = this.findParentHelper(id, child);
       if (res != null) {
         return res;
@@ -62,12 +62,12 @@ export class Tree {
     this.deleteHelper(id, this.root);
   }
   deleteHelper(id: number, node: node): boolean {
-    const idx = node.nodes.findIndex((e) => e.id == id);
+    const idx = node.children.findIndex((e) => e.id == id);
     if (idx > -1) {
-      node.nodes.splice(idx, 1);
+      node.children.splice(idx, 1);
       return true;
     }
-    for (const child of node.nodes) {
+    for (const child of node.children) {
       const res = this.deleteHelper(id, child);
       if (res) {
         return true;
@@ -87,12 +87,12 @@ export class Tree {
     );
     const newChild: node = {
       label: "child",
-      nodes: [],
+      children: [],
       itemClasses: itemClasses,
       containerClasses: ["flex"],
       id: this.idCount,
       depth: parent.depth + 1,
     };
-    parent.nodes.push(newChild);
+    parent.children.push(newChild);
   }
 }

@@ -12,19 +12,15 @@ const defaultState = () => {
     containerClasses: ["flex"],
     itemClasses: [],
     label: "root",
-    nodes: [],
+    children: [],
     depth: 0,
     id: idCount,
   };
 
   const tree = new Tree(root);
-  // const nodeLookup: { [key: number]: node } = {
-  //   1: tree,
-  // };
   return {
     tree: tree,
     idCount: idCount,
-    // nodeLookup: nodeLookup,
   };
 };
 
@@ -59,7 +55,7 @@ const store = createStore({
       const parent = state.tree.findParent(id);
       console.log(parent);
       state.tree.deleteNode(id);
-      if (parent.nodes.length == 0) {
+      if (parent.children.length == 0) {
         console.log(parent.containerClasses);
         parent.containerClasses = parent.containerClasses.filter(
           (e: string) => e != "flex-row" && e != "flex-col"
