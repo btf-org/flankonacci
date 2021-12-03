@@ -42,8 +42,6 @@ export default defineComponent({
       this.$store.commit("addColumn", {
         // @ts-ignore
         id: this.node.id,
-        itemClasses: ["flex"],
-        parentContainerClasses: ["flex-col"],
       });
     },
     addRow() {
@@ -51,8 +49,6 @@ export default defineComponent({
       this.$store.commit("addRow", {
         // @ts-ignore
         id: this.node.id,
-        itemClasses: ["flex"],
-        parentContainerClasses: ["flex-row"],
       });
     },
     addChild() {
