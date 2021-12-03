@@ -21,6 +21,9 @@ const store = createStore({
     addRow(state, payload) {
       state.tree.addRow(payload.id);
     },
+    addChild(state, id: number) {
+      state.tree.addChild(id);
+    },
     deleteNode(state, id: number) {
       state.tree.delete(id);
     },

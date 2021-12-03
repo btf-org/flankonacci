@@ -1,6 +1,5 @@
 <template>
-  <div :class="['border-4', 'p-4'].concat(Array.from(node.itemClasses))">
-    <div>{{ node.label }}</div>
+  <div :class="['border-4', 'm-4'].concat(Array.from(node.itemClasses))">
     <div>
       Items:
       <span v-for="cls in node.itemClasses.values()" :key="cls">
@@ -18,12 +17,12 @@
       <button @click="addColumn">Add Column</button>
     </div>
     <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
-    <div :class="Array.from(node.containerClasses)">
-      <Node
-        v-for="child in node.children"
-        :key="child.label"
-        :node="child"
-      ></Node>
+    <div
+      v-if="node.children.length > 0"
+      :class="Array.from(node.containerClasses)"
+    >
+      <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
+      <button @click="addChild">Add Child</button>
     </div>
   </div>
 </template>
@@ -55,6 +54,10 @@ export default defineComponent({
         itemClasses: ["flex"],
         parentContainerClasses: ["flex-row"],
       });
+    },
+    addChild() {
+      // @ts-ignore
+      this.$store.commit("addChild", this.node.id);
     },
     deleteNode() {
       // @ts-ignore

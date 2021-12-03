@@ -1,7 +1,6 @@
 export interface node {
   containerClasses: Set<string>;
   itemClasses: Set<string>;
-  label: string;
   children: node[];
   id: number;
   depth: number;
@@ -16,7 +15,6 @@ export class Tree {
     this.root = {
       containerClasses: new Set(["flex"]),
       itemClasses: new Set(),
-      label: "root",
       children: [],
       depth: 0,
       id: this.idCount,
@@ -71,6 +69,7 @@ export class Tree {
     if (parent.children.length == 0) {
       parent.containerClasses.delete("flex-row");
       parent.containerClasses.delete("flex-col");
+      parent.containerClasses.delete("flex");
     }
   }
   _deleteNode(id: number): void {
@@ -94,10 +93,9 @@ export class Tree {
     this.idCount++;
     const parent = this.find(id);
     const newChild: node = {
-      label: "child",
       children: [],
       itemClasses: new Set(),
-      containerClasses: new Set(["flex"]),
+      containerClasses: new Set(),
       id: this.idCount,
       depth: parent.depth + 1,
     };
@@ -109,11 +107,13 @@ export class Tree {
     this.addChild(id);
     const parent = this.find(id);
     parent.containerClasses.add("flex-row");
+    parent.containerClasses.add("flex");
   }
   addCol(id: number): void {
     this.addChild(id);
     this.addChild(id);
     const parent = this.find(id);
     parent.containerClasses.add("flex-col");
+    parent.containerClasses.add("flex");
   }
 }
