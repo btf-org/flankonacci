@@ -16,11 +16,28 @@ export class Tree {
     this.root = {
       containerClasses: new Set(["flex"]),
       itemClasses: new Set(),
-      formattingClasses: new Set(["m-4, border-4"]),
+      formattingClasses: new Set([
+        this._calcColor(0),
+        this._calcBorder(0),
+        this._calcTextColor(0),
+        "border-4",
+      ]),
       children: [],
       depth: 0,
       id: this.idCount,
     };
+  }
+
+  _calcColor(depth: number): string {
+    return `bg-gray-${((depth % 9) + 1) * 100}`;
+  }
+  _calcBorder(depth: number): string {
+    return `border-gray-${(((1 + depth) % 9) + 1) * 100}`;
+  }
+
+  _calcTextColor(depth: number): string {
+    const bg = ((depth % 9) + 1) * 100;
+    return bg <= 600 ? "text-black" : "text-white";
   }
 
   find(id: number): node {
@@ -98,7 +115,12 @@ export class Tree {
       children: [],
       itemClasses: new Set(),
       containerClasses: new Set(),
-      formattingClasses: new Set(["m-4, border-4"]),
+      formattingClasses: new Set([
+        this._calcColor(parent.depth + 1),
+        this._calcBorder(parent.depth + 1),
+        this._calcTextColor(parent.depth + 1),
+        "border-4",
+      ]),
       id: this.idCount,
       depth: parent.depth + 1,
     };
