@@ -37,6 +37,27 @@ export class Tree {
     return null;
   }
 
+  findParent(id: number): node {
+    const res = this.findParentHelper(id, this.root);
+    if (res != null) {
+      return res;
+    }
+    throw new Error("Not Found");
+  }
+
+  findParentHelper(id: number, node: node): node | null {
+    if (node.nodes.findIndex((e: node) => e.id == id) > -1) {
+      return node;
+    }
+    for (const child of node.nodes) {
+      const res = this.findParentHelper(id, child);
+      if (res != null) {
+        return res;
+      }
+    }
+    return null;
+  }
+
   deleteNode(id: number): void {
     this.deleteHelper(id, this.root);
   }
@@ -54,14 +75,21 @@ export class Tree {
     }
     return false;
   }
-  addChild(id: number): void {
+  addChild(
+    id: number,
+    itemClasses: string[],
+    parentContainerClasses: string[]
+  ): void {
     this.idCount++;
     const parent = this.find(id);
+    parent.containerClasses = parent.containerClasses.concat(
+      parentContainerClasses
+    );
     const newChild: node = {
       label: "child",
       nodes: [],
-      itemClasses: [],
-      containerClasses: [],
+      itemClasses: itemClasses,
+      containerClasses: ["flex"],
       id: this.idCount,
       depth: parent.depth + 1,
     };

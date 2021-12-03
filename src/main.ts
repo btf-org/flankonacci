@@ -9,13 +9,7 @@ import { node, Tree } from "./types";
 const defaultState = () => {
   const idCount = 1;
   const root: node = {
-    containerClasses: [
-      "text-red-500",
-      "flex",
-      "flex-row",
-      "flex-1",
-      "justify-center",
-    ],
+    containerClasses: ["flex"],
     itemClasses: [],
     label: "root",
     nodes: [],
@@ -37,11 +31,40 @@ const defaultState = () => {
 const store = createStore({
   state: defaultState(),
   mutations: {
-    addChild(state, id: number) {
-      state.tree.addChild(id);
+    addColumn(state, payload) {
+      state.tree.addChild(
+        payload.id,
+        payload.itemClasses,
+        payload.parentContainerClasses
+      );
+      state.tree.addChild(
+        payload.id,
+        payload.itemClasses,
+        payload.parentContainerClasses
+      );
+    },
+    addRow(state, payload) {
+      state.tree.addChild(
+        payload.id,
+        payload.itemClasses,
+        payload.parentContainerClasses
+      );
+      state.tree.addChild(
+        payload.id,
+        payload.itemClasses,
+        payload.parentContainerClasses
+      );
     },
     deleteNode(state, id: number) {
+      const parent = state.tree.findParent(id);
+      console.log(parent);
       state.tree.deleteNode(id);
+      if (parent.nodes.length == 0) {
+        console.log(parent.containerClasses);
+        parent.containerClasses = parent.containerClasses.filter(
+          (e: string) => e != "flex-row" && e != "flex-col"
+        );
+      }
     },
   },
 });

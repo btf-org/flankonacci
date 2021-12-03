@@ -1,8 +1,6 @@
 <template>
   <div :class="['border-4', 'p-4'].concat(node.itemClasses)">
     <div>{{ node.label }}</div>
-    <button @click="addChild">Add Child</button>
-    <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
     <div>
       Items:
       <span v-for="cls in node.itemClasses" :key="cls">
@@ -15,6 +13,11 @@
         {{ cls }}
       </span>
     </div>
+    <div v-if="node?.nodes.length == 0">
+      <button @click="addRow">Add Row</button>
+      <button @click="addColumn">Add Column</button>
+    </div>
+    <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
     <div :class="node.containerClasses">
       <Node v-for="child in node.nodes" :key="child.label" :node="child"></Node>
     </div>
@@ -31,9 +34,23 @@ export default defineComponent({
     node: Object as () => node,
   },
   methods: {
-    addChild() {
+    addColumn() {
       // @ts-ignore
-      this.$store.commit("addChild", this.node.id);
+      this.$store.commit("addColumn", {
+        // @ts-ignore
+        id: this.node.id,
+        itemClasses: ["flex"],
+        parentContainerClasses: ["flex-col"],
+      });
+    },
+    addRow() {
+      // @ts-ignore
+      this.$store.commit("addRow", {
+        // @ts-ignore
+        id: this.node.id,
+        itemClasses: ["flex"],
+        parentContainerClasses: ["flex-row"],
+      });
     },
     deleteNode() {
       // @ts-ignore
