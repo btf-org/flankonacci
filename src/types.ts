@@ -1,5 +1,5 @@
 export interface node {
-  containerClasses: string[];
+  containerClasses: Set<string>;
   itemClasses: string[];
   label: string;
   children: node[];
@@ -82,7 +82,7 @@ export class Tree {
       label: "child",
       children: [],
       itemClasses: [],
-      containerClasses: ["flex"],
+      containerClasses: new Set(["flex"]),
       id: this.idCount,
       depth: parent.depth + 1,
     };
@@ -93,12 +93,12 @@ export class Tree {
     this.addChild(id);
     this.addChild(id);
     const parent = this.find(id);
-    parent.containerClasses.push("flex-row");
+    parent.containerClasses.add("flex-row");
   }
   addCol(id: number): void {
     this.addChild(id);
     this.addChild(id);
     const parent = this.find(id);
-    parent.containerClasses.push("flex-col");
+    parent.containerClasses.add("flex-col");
   }
 }

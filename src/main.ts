@@ -9,7 +9,7 @@ import { node, Tree } from "./types";
 const defaultState = () => {
   const idCount = 1;
   const root: node = {
-    containerClasses: ["flex"],
+    containerClasses: new Set(["flex"]),
     itemClasses: [],
     label: "root",
     children: [],
@@ -39,9 +39,8 @@ const store = createStore({
       state.tree.deleteNode(id);
       if (parent.children.length == 0) {
         console.log(parent.containerClasses);
-        parent.containerClasses = parent.containerClasses.filter(
-          (e: string) => e != "flex-row" && e != "flex-col"
-        );
+        parent.containerClasses.delete("flex-row");
+        parent.containerClasses.delete("flex-col");
       }
     },
   },
