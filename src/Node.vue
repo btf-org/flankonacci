@@ -1,15 +1,15 @@
 <template>
-  <div :class="['border-4', 'p-4'].concat(node.itemClasses)">
+  <div :class="['border-4', 'p-4'].concat(Array.from(node.itemClasses))">
     <div>{{ node.label }}</div>
     <div>
       Items:
-      <span v-for="cls in node.itemClasses" :key="cls">
+      <span v-for="cls in node.itemClasses.values()" :key="cls">
         {{ cls }}
       </span>
     </div>
     <div>
       Parent:
-      <span v-for="cls in node.containerClasses" :key="cls">
+      <span v-for="cls in node.containerClasses.values()" :key="cls">
         {{ cls }}
       </span>
     </div>
@@ -18,7 +18,7 @@
       <button @click="addColumn">Add Column</button>
     </div>
     <button v-if="node.depth > 0" @click="deleteNode">Delete</button>
-    <div :class="node.containerClasses">
+    <div :class="Array.from(node.containerClasses)">
       <Node
         v-for="child in node.children"
         :key="child.label"
