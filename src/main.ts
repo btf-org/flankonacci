@@ -9,6 +9,7 @@ import { Tree } from "./types";
 const defaultState = () => {
   return {
     tree: new Tree(),
+    showMargins: true,
   };
 };
 
@@ -27,6 +28,9 @@ const store = createStore({
     deleteNode(state, id: number) {
       state.tree.delete(id);
     },
+    // toggleMargin(state) {
+    //   if(showMargins)
+    // }
   },
 });
 

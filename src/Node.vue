@@ -1,5 +1,11 @@
 <template>
-  <div :class="['border-4', 'm-4'].concat(Array.from(node.itemClasses))">
+  <div
+    :class="
+      [{ 'm-4': $store.state.showMargins }].concat(
+        Array.from(new Set([...node.itemClasses, ...node.formattingClasses]))
+      )
+    "
+  >
     <div>
       Items:
       <span v-for="cls in node.itemClasses.values()" :key="cls">

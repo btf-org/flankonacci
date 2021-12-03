@@ -1,6 +1,13 @@
 <template>
   <div id="app">
-    <div><button @click="exportHtml">Export HTML</button></div>
+    <div>
+      <button @click="exportHtml">Export HTML</button
+      ><input
+        :checked="$store.state.showMargins"
+        :v-on="alert"
+        type="checkbox"
+      />
+    </div>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -19,6 +26,9 @@ export default defineComponent({
       // @ts-ignore
       const html = this.$store.state.tree.exportHtml();
       alert(html);
+    },
+    alert: function () {
+      alert("hi");
     },
   },
 });

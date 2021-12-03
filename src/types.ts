@@ -1,6 +1,7 @@
 export interface node {
   containerClasses: Set<string>;
   itemClasses: Set<string>;
+  formattingClasses: Set<string>;
   children: node[];
   id: number;
   depth: number;
@@ -15,6 +16,7 @@ export class Tree {
     this.root = {
       containerClasses: new Set(["flex"]),
       itemClasses: new Set(),
+      formattingClasses: new Set(["m-4, border-4"]),
       children: [],
       depth: 0,
       id: this.idCount,
@@ -96,6 +98,7 @@ export class Tree {
       children: [],
       itemClasses: new Set(),
       containerClasses: new Set(),
+      formattingClasses: new Set(["m-4, border-4"]),
       id: this.idCount,
       depth: parent.depth + 1,
     };
