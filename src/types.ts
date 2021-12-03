@@ -116,4 +116,30 @@ export class Tree {
     parent.containerClasses.add("flex-col");
     parent.containerClasses.add("flex");
   }
+
+  exportHtml(): string {
+    return this._exportHtmlHelper(this.root);
+  }
+  _exportHtmlHelper(node: node): string {
+    if (node.children.length == 0) {
+      return (
+        "\n" +
+        " ".repeat(node.depth * 4) +
+        `<div class="${Array.from(
+          new Set([...node.containerClasses, ...node.itemClasses])
+        ).join(" ")}"></div>`
+      );
+    }
+    let html =
+      "\n" +
+      " ".repeat(node.depth * 4) +
+      `<div class="${Array.from(
+        new Set([...node.containerClasses, ...node.itemClasses])
+      ).join(" ")}">`;
+    for (const child of node.children) {
+      html += this._exportHtmlHelper(child);
+    }
+    html += "\n" + " ".repeat(node.depth * 4) + "</div>";
+    return html;
+  }
 }

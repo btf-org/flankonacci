@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div><button @click="exportHtml">Export HTML</button></div>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -12,6 +13,13 @@ export default defineComponent({
   name: "Home",
   components: {
     Node,
+  },
+  methods: {
+    exportHtml: function () {
+      // @ts-ignore
+      const html = this.$store.state.tree.exportHtml();
+      alert(html);
+    },
   },
 });
 </script>
