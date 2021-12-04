@@ -35,8 +35,8 @@ const store = createStore({
     updateShowClasses(state, value: boolean) {
       state.showClasses = value;
     },
-    updateItemClasses(state, payload) {
-      state.tree.updateItemClasses(payload.id, payload.classes, payload.list);
+    updateClasses(state, payload) {
+      state.tree.updateClasses(payload.id, payload.classes, payload.list);
     },
   },
 });

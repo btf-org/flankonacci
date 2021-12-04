@@ -159,7 +159,7 @@ export default defineComponent({
         this.containerEditable = false;
       }
       // @ts-ignore
-      this.$store.commit("updateItemClasses", {
+      this.$store.commit("updateClasses", {
         id: this.node.id,
         classes: list == "item" ? this.itemClasses : this.containerClasses,
         list,

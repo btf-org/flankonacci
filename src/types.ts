@@ -169,7 +169,7 @@ export class Tree {
     html += "\n" + " ".repeat(node.depth * 4) + "</div>";
     return html;
   }
-  updateItemClasses(id: number, classes: string, list: string): void {
+  updateClasses(id: number, classes: string, list: string): void {
     const node = this.find(id);
     if (list == "item") {
       node.itemClasses = new Set(classes.split(/\s+/));
