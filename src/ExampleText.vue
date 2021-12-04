@@ -1,6 +1,10 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div>Hello world hello world</div>
+  <div>
+    <div>Hello world hello world</div>
+    <div>Hello world hello world</div>
+    <div>Hello world hello world</div>
+  </div>
 </template>
 
 <script lang="ts">
