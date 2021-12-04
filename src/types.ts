@@ -113,7 +113,7 @@ export class Tree {
     const parent = this.find(id);
     const newChild: node = {
       children: [],
-      itemClasses: new Set(),
+      itemClasses: new Set(["flex-1"]),
       containerClasses: new Set(),
       formattingClasses: new Set([
         this._calcColor(parent.depth + 1),
@@ -133,6 +133,7 @@ export class Tree {
     const parent = this.find(id);
     parent.containerClasses.add("flex-row");
     parent.containerClasses.add("flex");
+    parent.containerClasses.add("flex-nowrap");
   }
   addCol(id: number): void {
     this.addChild(id);
@@ -140,6 +141,7 @@ export class Tree {
     const parent = this.find(id);
     parent.containerClasses.add("flex-col");
     parent.containerClasses.add("flex");
+    parent.containerClasses.add("flex-nowrap");
   }
 
   exportHtml(): string {

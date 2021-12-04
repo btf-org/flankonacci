@@ -6,7 +6,7 @@
       )
     "
   >
-    <div class="absolute top-0 right-0">
+    <div class="absolute top-0 right-0 z-10">
       <button v-if="node.depth > 0" @click="deleteNode">
         <XIcon class="h-5 w-5" />
       </button>
@@ -24,7 +24,7 @@
       </span>
     </div>
     <div
-      class="absolute w-full h-full flex flex-row top-0 justify-center"
+      class="absolute w-full h-full flex flex-row top-0 justify-center z-0"
       v-if="node?.children.length == 0"
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
