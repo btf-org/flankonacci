@@ -10,6 +10,7 @@ const defaultState = () => {
   return {
     tree: new Tree(),
     showMargins: true,
+    showClasses: true,
   };
 };
 
@@ -27,6 +28,12 @@ const store = createStore({
     },
     deleteNode(state, id: number) {
       state.tree.delete(id);
+    },
+    updateShowMargins(state, value: boolean) {
+      state.showMargins = value;
+    },
+    updateShowClasses(state, value: boolean) {
+      state.showClasses = value;
     },
     // toggleMargin(state) {
     //   if(showMargins)
