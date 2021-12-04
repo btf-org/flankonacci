@@ -52,15 +52,17 @@
       </div>
     </div>
     <div
-      class="flex flex-row justify-center h-full"
-      v-if="node?.children.length == 0"
+      class="flex flex-row justify-center items-center h-full"
+      v-if="node.comp == null && node.children.length == 0"
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
-      <button @click="addColumn"><CubeIcon class="h-5 w-5" /></button>
+      <Dropdown @createTable="createTable"></Dropdown>
     </div>
+    <!-- <ExampleTable v-if="showTable"></ExampleTable> -->
+    <component v-if="node.comp !== null" :is="node.comp"></component>
     <div
-      v-if="node.children.length > 0"
+      v-if="node.comp == null && node.children.length > 0"
       :class="Array.from(node.containerClasses).concat('h-full')"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
@@ -81,8 +83,9 @@ import {
   PlusCircleIcon,
   CheckCircleIcon,
   PencilIcon,
-  CubeIcon,
 } from "@heroicons/vue/solid";
+import Dropdown from "./Dropdown.vue";
+import ExampleTable from "./ExampleTable.vue";
 
 export default defineComponent({
   name: "Node",
@@ -93,7 +96,8 @@ export default defineComponent({
     PlusCircleIcon,
     CheckCircleIcon,
     PencilIcon,
-    CubeIcon,
+    Dropdown,
+    ExampleTable,
   },
   props: {
     node: {
@@ -108,6 +112,8 @@ export default defineComponent({
       containerClasses: "",
       containerEditable: false,
       bgColor: "",
+      showTable: false,
+      component: "ExampleTable",
     };
   },
   watch: {
@@ -169,6 +175,14 @@ export default defineComponent({
         id: this.node.id,
         classes: list == "item" ? this.itemClasses : this.containerClasses,
         list,
+      });
+    },
+    createTable() {
+      // alert("hi");
+      // @ts-ignore
+      this.$store.commit("updateComponent", {
+        id: this.node.id,
+        comp: "ExampleTable",
       });
     },
   },

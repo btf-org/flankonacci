@@ -5,6 +5,7 @@ export interface node {
   children: node[];
   id: number;
   depth: number;
+  comp: any | null;
 }
 
 export class Tree {
@@ -25,6 +26,7 @@ export class Tree {
       children: [],
       depth: 0,
       id: this.idCount,
+      comp: null,
     };
   }
 
@@ -123,6 +125,7 @@ export class Tree {
       ]),
       id: this.idCount,
       depth: parent.depth + 1,
+      comp: null,
     };
     parent.children.push(newChild);
   }
@@ -176,5 +179,9 @@ export class Tree {
     } else if (list == "container") {
       node.containerClasses = new Set(classes.split(/\s+/));
     }
+  }
+  updateComponent(id: number, comp: any): void {
+    const node = this.find(id);
+    node.comp = comp;
   }
 }

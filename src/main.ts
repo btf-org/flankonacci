@@ -38,6 +38,9 @@ const store = createStore({
     updateClasses(state, payload) {
       state.tree.updateClasses(payload.id, payload.classes, payload.list);
     },
+    updateComponent(state, payload) {
+      state.tree.updateComponent(payload.id, payload.comp);
+    },
   },
 });
 
