@@ -7,7 +7,9 @@
     "
   >
     <div class="absolute top-0 right-0">
-      <button v-if="node.depth > 0" @click="deleteNode">D</button>
+      <button v-if="node.depth > 0" @click="deleteNode">
+        <XIcon class="h-5 w-5" />
+      </button>
     </div>
     <div>
       Items:
@@ -21,16 +23,19 @@
         {{ cls }}
       </span>
     </div>
-    <div v-if="node?.children.length == 0">
-      <button @click="addRow">Add Row</button>
-      <button @click="addColumn">Add Column</button>
+    <div
+      class="absolute w-full h-full flex flex-row top-0 justify-center"
+      v-if="node?.children.length == 0"
+    >
+      <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
+      <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
     </div>
     <div
       v-if="node.children.length > 0"
       :class="Array.from(node.containerClasses)"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
-      <button @click="addChild">Add Child</button>
+      <button @click="addChild"><PlusCircleIcon class="h-5 w-5" /></button>
     </div>
   </div>
 </template>
@@ -38,9 +43,20 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { node } from "./types";
-
+import {
+  XIcon,
+  DotsVerticalIcon,
+  DotsHorizontalIcon,
+  PlusCircleIcon,
+} from "@heroicons/vue/solid";
 export default defineComponent({
   name: "Node",
+  components: {
+    XIcon,
+    DotsVerticalIcon,
+    DotsHorizontalIcon,
+    PlusCircleIcon,
+  },
   props: {
     node: Object as () => node,
   },
