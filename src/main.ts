@@ -35,9 +35,9 @@ const store = createStore({
     updateShowClasses(state, value: boolean) {
       state.showClasses = value;
     },
-    // toggleMargin(state) {
-    //   if(showMargins)
-    // }
+    updateItemClasses(state, payload) {
+      state.tree.updateItemClasses(payload.id, payload.itemClasses);
+    },
   },
 });
 

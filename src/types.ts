@@ -169,4 +169,8 @@ export class Tree {
     html += "\n" + " ".repeat(node.depth * 4) + "</div>";
     return html;
   }
+  updateItemClasses(id: number, itemClasses: string): void {
+    const node = this.find(id);
+    node.itemClasses = new Set(itemClasses.split(/\s+/));
+  }
 }
