@@ -62,7 +62,7 @@
     <component v-if="node.comp !== null" :is="node.comp"></component>
     <div
       v-if="node.comp == null && node.children.length > 0"
-      :class="Array.from(node.containerClasses).concat('h-full')"
+      :class="Array.from(node.containerClasses)"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
       <div>

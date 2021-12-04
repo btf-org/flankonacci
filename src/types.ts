@@ -15,7 +15,7 @@ export class Tree {
   constructor() {
     this.idCount = 1;
     this.root = {
-      containerClasses: new Set(["flex"]),
+      containerClasses: new Set(["flex", "h-full"]),
       itemClasses: new Set(["flex-grow"]),
       formattingClasses: new Set([
         this._calcColor(0),
@@ -116,7 +116,7 @@ export class Tree {
     const newChild: node = {
       children: [],
       itemClasses: new Set(["flex-1"]),
-      containerClasses: new Set(),
+      containerClasses: new Set(["h-full"]),
       formattingClasses: new Set([
         this._calcColor(parent.depth + 1),
         this._calcBorder(parent.depth + 1),
