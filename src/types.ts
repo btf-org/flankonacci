@@ -169,8 +169,12 @@ export class Tree {
     html += "\n" + " ".repeat(node.depth * 4) + "</div>";
     return html;
   }
-  updateItemClasses(id: number, itemClasses: string): void {
+  updateItemClasses(id: number, classes: string, list: string): void {
     const node = this.find(id);
-    node.itemClasses = new Set(itemClasses.split(/\s+/));
+    if (list == "item") {
+      node.itemClasses = new Set(classes.split(/\s+/));
+    } else if (list == "container") {
+      node.containerClasses = new Set(classes.split(/\s+/));
+    }
   }
 }

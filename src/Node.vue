@@ -28,16 +28,27 @@
     >
       <div>
         Item:
-        <button @click="allowItemEditing" v-if="!itemEditable">
+        <button @click="allowEditing('item')" v-if="!itemEditable">
           <PencilIcon class="h-4 w-4" />
         </button>
-        <button @click="finishEditingItem" v-if="itemEditable">
+        <button @click="finishEditing('item')" v-if="itemEditable">
           <CheckCircleIcon class="h-4 w-4" />
         </button>
-        <input v-model="itemClasses" :disabled="!itemEditable" />
+        <input
+          v-model="itemClasses"
+          :disabled="!itemEditable"
+          :class="[!itemEditable ? bgColor : '']"
+        />
       </div>
       <div v-if="node?.children.length > 0">
-        Parent: {{ Array.from(node.containerClasses).join(" ") }}
+        Container:
+        <button @click="allowEditing('container')" v-if="!containerEditable">
+          <PencilIcon class="h-4 w-4" />
+        </button>
+        <button @click="finishEditing('container')" v-if="containerEditable">
+          <CheckCircleIcon class="h-4 w-4" />
+        </button>
+        <input v-model="containerClasses" :disabled="!containerEditable" />
       </div>
     </div>
     <div class="flex flex-row justify-center" v-if="node?.children.length == 0">
@@ -88,11 +99,28 @@ export default defineComponent({
     return {
       itemEditable: false,
       itemClasses: "",
+      containerClasses: "",
+      containerEditable: false,
       bgColor: "",
     };
   },
+  watch: {
+    "node.itemClasses": {
+      handler: function (newVal) {
+        this.itemClasses = Array.from(newVal).join(" ");
+      },
+      deep: true,
+    },
+    "node.containerClasses": {
+      handler: function (newVal) {
+        this.containerClasses = Array.from(newVal).join(" ");
+      },
+      deep: true,
+    },
+  },
   created() {
     this.itemClasses = Array.from(this.node.itemClasses).join(" ");
+    this.containerClasses = Array.from(this.node.containerClasses).join(" ");
     this.bgColor =
       Array.from(this.node.formattingClasses).find((e) => /bg-/.test(e)) || "";
   },
@@ -117,15 +145,24 @@ export default defineComponent({
       // @ts-ignore
       this.$store.commit("deleteNode", this.node.id);
     },
-    allowItemEditing() {
-      this.itemEditable = true;
+    allowEditing(list: string) {
+      if (list == "item") {
+        this.itemEditable = true;
+      } else if (list == "container") {
+        this.containerEditable = true;
+      }
     },
-    finishEditingItem() {
-      this.itemEditable = false;
+    finishEditing(list: string) {
+      if (list == "item") {
+        this.itemEditable = false;
+      } else if (list == "container") {
+        this.containerEditable = false;
+      }
       // @ts-ignore
       this.$store.commit("updateItemClasses", {
         id: this.node.id,
-        itemClasses: this.itemClasses,
+        classes: list == "item" ? this.itemClasses : this.containerClasses,
+        list,
       });
     },
   },

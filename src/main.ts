@@ -36,7 +36,7 @@ const store = createStore({
       state.showClasses = value;
     },
     updateItemClasses(state, payload) {
-      state.tree.updateItemClasses(payload.id, payload.itemClasses);
+      state.tree.updateItemClasses(payload.id, payload.classes, payload.list);
     },
   },
 });
