@@ -46,7 +46,7 @@
         <div class="py-1">
           <MenuItem v-slot="{ active }">
             <a
-              @click="$emit('createTable')"
+              @click="$emit('addComponent', 'ExampleTable')"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                 'block px-4 py-2 text-sm',
@@ -56,37 +56,24 @@
           </MenuItem>
           <MenuItem v-slot="{ active }">
             <a
-              href="#"
+              @click="$emit('addComponent', 'ExampleStats')"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                 'block px-4 py-2 text-sm',
               ]"
-              >Support</a
+              >Stats</a
             >
           </MenuItem>
           <MenuItem v-slot="{ active }">
             <a
-              href="#"
+              @click="$emit('addComponent', 'ExampleText')"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                 'block px-4 py-2 text-sm',
               ]"
-              >License</a
+              >Text</a
             >
           </MenuItem>
-          <form method="POST" action="#">
-            <MenuItem v-slot="{ active }">
-              <button
-                type="submit"
-                :class="[
-                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                  'block w-full text-left px-4 py-2 text-sm',
-                ]"
-              >
-                Sign out
-              </button>
-            </MenuItem>
-          </form>
         </div>
       </MenuItems>
     </transition>

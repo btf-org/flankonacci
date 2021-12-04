@@ -57,9 +57,8 @@
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
-      <Dropdown @createTable="createTable"></Dropdown>
+      <Dropdown @addComponent="addComponent"></Dropdown>
     </div>
-    <!-- <ExampleTable v-if="showTable"></ExampleTable> -->
     <component v-if="node.comp !== null" :is="node.comp"></component>
     <div
       v-if="node.comp == null && node.children.length > 0"
@@ -86,6 +85,8 @@ import {
 } from "@heroicons/vue/solid";
 import Dropdown from "./Dropdown.vue";
 import ExampleTable from "./ExampleTable.vue";
+import ExampleStats from "./ExampleStats.vue";
+import ExampleText from "./ExampleText.vue";
 
 export default defineComponent({
   name: "Node",
@@ -98,6 +99,8 @@ export default defineComponent({
     PencilIcon,
     Dropdown,
     ExampleTable,
+    ExampleStats,
+    ExampleText,
   },
   props: {
     node: {
@@ -112,8 +115,6 @@ export default defineComponent({
       containerClasses: "",
       containerEditable: false,
       bgColor: "",
-      showTable: false,
-      component: "ExampleTable",
     };
   },
   watch: {
@@ -177,12 +178,11 @@ export default defineComponent({
         list,
       });
     },
-    createTable() {
-      // alert("hi");
+    addComponent(comp: string) {
       // @ts-ignore
       this.$store.commit("updateComponent", {
         id: this.node.id,
-        comp: "ExampleTable",
+        comp: comp,
       });
     },
   },
