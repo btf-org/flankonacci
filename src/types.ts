@@ -15,7 +15,7 @@ export class Tree {
     this.idCount = 1;
     this.root = {
       containerClasses: new Set(["flex"]),
-      itemClasses: new Set(),
+      itemClasses: new Set(["flex-grow"]),
       formattingClasses: new Set([
         this._calcColor(0),
         this._calcBorder(0),

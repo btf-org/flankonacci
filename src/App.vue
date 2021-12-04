@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="flex flex-col">
     <div>
       <button @click="exportHtml">Export HTML</button>
       <SwitchGroup as="div" class="flex items-center">
@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 
 import Node from "./Node.vue";
 
@@ -61,30 +61,30 @@ export default defineComponent({
     Node,
     Switch,
     SwitchGroup,
-    SwitchLabel
+    SwitchLabel,
   },
   computed: {
-  showMargins: {
-    get () {
-      // @ts-ignore
-      return this.$store.state.showMargins
+    showMargins: {
+      get() {
+        // @ts-ignore
+        return this.$store.state.showMargins;
+      },
+      set(value) {
+        // @ts-ignore
+        this.$store.commit("updateShowMargins", value);
+      },
     },
-    set (value) {
-      // @ts-ignore
-      this.$store.commit('updateShowMargins', value)
-    }
+    showClasses: {
+      get() {
+        // @ts-ignore
+        return this.$store.state.showClasses;
+      },
+      set(value) {
+        // @ts-ignore
+        this.$store.commit("updateShowClasses", value);
+      },
+    },
   },
-  showClasses: {
-    get () {
-      // @ts-ignore
-      return this.$store.state.showClasses
-    },
-    set (value) {
-      // @ts-ignore
-      this.$store.commit('updateShowClasses', value)
-    }
-  }
-},
   methods: {
     exportHtml: function () {
       // @ts-ignore
@@ -99,9 +99,18 @@ export default defineComponent({
 </script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+  overflow-y: hidden !important;
+}
+body {
+  height: -webkit-fill-available;
 }
 </style>

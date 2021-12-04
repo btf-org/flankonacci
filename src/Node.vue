@@ -51,13 +51,17 @@
         <input v-model="containerClasses" :disabled="!containerEditable" />
       </div>
     </div>
-    <div class="flex flex-row justify-center" v-if="node?.children.length == 0">
+    <div
+      class="flex flex-row justify-center h-full"
+      v-if="node?.children.length == 0"
+    >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
+      <button @click="addColumn"><CubeIcon class="h-5 w-5" /></button>
     </div>
     <div
       v-if="node.children.length > 0"
-      :class="Array.from(node.containerClasses)"
+      :class="Array.from(node.containerClasses).concat('h-full')"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
       <div>
@@ -77,6 +81,7 @@ import {
   PlusCircleIcon,
   CheckCircleIcon,
   PencilIcon,
+  CubeIcon,
 } from "@heroicons/vue/solid";
 
 export default defineComponent({
@@ -88,6 +93,7 @@ export default defineComponent({
     PlusCircleIcon,
     CheckCircleIcon,
     PencilIcon,
+    CubeIcon,
   },
   props: {
     node: {
