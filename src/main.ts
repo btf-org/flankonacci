@@ -10,7 +10,6 @@ const defaultState = () => {
   return {
     tree: new Tree(),
     showMargins: true,
-    showClasses: true,
   };
 };
 
@@ -31,9 +30,6 @@ const store = createStore({
     },
     updateShowMargins(state, value: boolean) {
       state.showMargins = value;
-    },
-    updateShowClasses(state, value: boolean) {
-      state.showClasses = value;
     },
     updateClasses(state, payload) {
       state.tree.updateClasses(payload.id, payload.classes, payload.list);

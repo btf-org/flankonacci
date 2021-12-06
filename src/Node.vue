@@ -1,18 +1,26 @@
 <template>
-  <div
+  <!-- <div
     :class="
       [{ 'm-4': $store.state.showMargins }, 'relative'].concat(
         Array.from(new Set([...node.itemClasses, ...node.formattingClasses]))
       )
     "
+  > -->
+  <div
+    :class="
+      [{ 'm-4': $store.state.showMargins }, 'relative'].concat(topLevelClasses)
+    "
   >
-    <div class="absolute top-0 right-0">
-      <button v-if="node.depth > 0" @click="deleteNode">
+    <div
+      v-if="node.depth > 0 && $store.state.showMargins"
+      class="absolute top-0 right-0"
+    >
+      <button @click="deleteNode">
         <XIcon class="h-4 w-4" />
       </button>
     </div>
     <div
-      v-if="$store.state.showClasses"
+      v-if="$store.state.showMargins"
       :class="[
         'font-mono',
         'text-xs',
@@ -53,7 +61,12 @@
     </div>
     <div
       class="flex flex-row justify-center items-center h-full"
-      v-if="node.comp == null && node.children.length == 0"
+      v-if="
+        node.comp == null &&
+        node.children.length == 0 &&
+        // @ts-ignore
+        $store.state.showMargins
+      "
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
@@ -65,7 +78,7 @@
       :class="Array.from(node.containerClasses)"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
-      <div>
+      <div v-if="$store.state.showMargins">
         <button @click="addChild"><PlusCircleIcon class="h-5 w-5" /></button>
       </div>
     </div>
@@ -116,6 +129,18 @@ export default defineComponent({
       containerEditable: false,
       bgColor: "",
     };
+  },
+  computed: {
+    topLevelClasses() {
+      // @ts-ignore
+      if (this.$store.state.showMargins) {
+        return Array.from(
+          new Set([...this.node.itemClasses, ...this.node.formattingClasses])
+        );
+      } else {
+        return Array.from(this.node.itemClasses);
+      }
+    },
   },
   watch: {
     "node.itemClasses": {
