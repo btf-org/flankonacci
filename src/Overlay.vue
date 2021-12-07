@@ -1,11 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <TransitionRoot as="template" :show="open">
-    <Dialog
-      as="div"
-      class="fixed inset-0 overflow-hidden"
-      @close="open = false"
-    >
+  <TransitionRoot as="template" :show="show">
+    <Dialog as="div" class="fixed inset-0 overflow-hidden">
       <div class="absolute inset-0 overflow-hidden">
         <DialogOverlay class="absolute inset-0" />
 
@@ -48,7 +44,7 @@
                           focus:ring-offset-2
                           focus:ring-indigo-500
                         "
-                        @click="open = false"
+                        @click="$emit('close')"
                       >
                         <span class="sr-only">Close panel</span>
                         <XIcon class="h-6 w-6" aria-hidden="true" />
@@ -95,6 +91,7 @@ export default {
     TransitionRoot,
     XIcon,
   },
+  props: ["show"],
   setup() {
     const open = ref(true);
 

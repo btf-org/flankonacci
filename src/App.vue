@@ -48,7 +48,7 @@
       <button type="button" @click="overlayOpen = false">Close Modal</button>
       <button type="button" @click="overlayOpen = true">Open Modal</button>
     </div>
-    <Overlay :show="overlayOpen"></Overlay>
+    <Overlay :show="overlayOpen" @close="closeModal"></Overlay>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -69,7 +69,7 @@ export default defineComponent({
     SwitchLabel,
   },
   data() {
-    return { overlayOpen: true };
+    return { overlayOpen: false };
   },
   computed: {
     inDesignMode: {
@@ -89,8 +89,11 @@ export default defineComponent({
       const html = this.$store.state.tree.exportHtml();
       alert(html);
     },
-    alert: function () {
-      alert("hi");
+    openModal: function () {
+      this.overlayOpen = true;
+    },
+    closeModal: function () {
+      this.overlayOpen = false;
     },
   },
 });
