@@ -1,7 +1,30 @@
 <template>
   <div id="app" class="flex flex-col">
     <div class="bg-purple-200 mb-4 shadow flex flex-row p-5 space-x-5">
-      <button @click="exportHtml">Export HTML</button>
+      <button
+        @click="exportHtml"
+        type="button"
+        class="
+          inline-flex
+          items-center
+          px-4
+          py-2
+          border border-gray-300
+          shadow-sm
+          text-sm
+          font-medium
+          rounded-md
+          text-gray-700
+          bg-white
+          hover:bg-gray-50
+          focus:outline-none
+          focus:ring-2
+          focus:ring-offset-2
+          focus:ring-indigo-500
+        "
+      >
+        Export HTML
+      </button>
       <SwitchGroup as="div" class="flex items-center">
         <Switch
           v-model="showMargins"
