@@ -10,7 +10,7 @@ const defaultState = () => {
   return {
     tree: new Tree(),
     inDesignMode: true,
-    overlayOpen: true,
+    overlayOpen: false,
     overlayData: null,
   };
 };

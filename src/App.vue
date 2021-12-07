@@ -45,10 +45,9 @@
           <span class="text-sm font-medium text-gray-900">Design Mode</span>
         </SwitchLabel>
       </SwitchGroup>
-      <button type="button" @click="overlayOpen = false">Close Modal</button>
-      <button type="button" @click="overlayOpen = true">Open Modal</button>
+      <button type="button" @click="openOverlay">Open Overlay</button>
     </div>
-    <Overlay :show="overlayOpen" @close="closeModal"></Overlay>
+    <Overlay :show="$store.state.overlayOpen" @close="closeOverlay"></Overlay>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -68,9 +67,9 @@ export default defineComponent({
     SwitchGroup,
     SwitchLabel,
   },
-  data() {
-    return { overlayOpen: false };
-  },
+  // data() {
+  //   return { overlayOpen: false };
+  // },
   computed: {
     inDesignMode: {
       get() {
@@ -89,11 +88,13 @@ export default defineComponent({
       const html = this.$store.state.tree.exportHtml();
       alert(html);
     },
-    openModal: function () {
-      this.overlayOpen = true;
+    openOverlay: function () {
+      // @ts-ignore
+      this.$store.commit("updateOverlay", { open: true, compData: "weeee" });
     },
-    closeModal: function () {
-      this.overlayOpen = false;
+    closeOverlay: function () {
+      // @ts-ignore
+      this.$store.commit("updateOverlay", { open: false, compData: null });
     },
   },
 });
