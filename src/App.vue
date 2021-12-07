@@ -45,8 +45,10 @@
           <span class="text-sm font-medium text-gray-900">Design Mode</span>
         </SwitchLabel>
       </SwitchGroup>
+      <button type="button" @click="overlayOpen = false">Close Modal</button>
+      <button type="button" @click="overlayOpen = true">Open Modal</button>
     </div>
-    <Overlay :show="$store.state.overlayOpen"></Overlay>
+    <Overlay :show="overlayOpen"></Overlay>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -65,6 +67,9 @@ export default defineComponent({
     Switch,
     SwitchGroup,
     SwitchLabel,
+  },
+  data() {
+    return { overlayOpen: true };
   },
   computed: {
     inDesignMode: {
