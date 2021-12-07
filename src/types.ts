@@ -6,6 +6,7 @@ export interface node {
   id: number;
   depth: number;
   comp: any | null;
+  compData: any | null;
 }
 
 export class Tree {
@@ -27,6 +28,7 @@ export class Tree {
       depth: 0,
       id: this.idCount,
       comp: null,
+      compData: null,
     };
   }
 
@@ -126,6 +128,7 @@ export class Tree {
       id: this.idCount,
       depth: parent.depth + 1,
       comp: null,
+      compData: null,
     };
     parent.children.push(newChild);
   }
@@ -180,8 +183,9 @@ export class Tree {
       node.containerClasses = new Set(classes.split(/\s+/));
     }
   }
-  updateComponent(id: number, comp: any): void {
+  updateComponent(id: number, comp: any, compData: any): void {
     const node = this.find(id);
     node.comp = comp;
+    node.compData = compData;
   }
 }

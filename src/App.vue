@@ -27,25 +27,26 @@
       </button>
       <SwitchGroup as="div" class="flex items-center">
         <Switch
-          v-model="showMargins"
+          v-model="inDesignMode"
           :class="[
-            showMargins ? 'bg-indigo-600' : 'bg-gray-200',
+            inDesignMode ? 'bg-indigo-600' : 'bg-gray-200',
             'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
           ]"
         >
           <span
             aria-hidden="true"
             :class="[
-              showMargins ? 'translate-x-5' : 'translate-x-0',
+              inDesignMode ? 'translate-x-5' : 'translate-x-0',
               'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
             ]"
           />
         </Switch>
         <SwitchLabel as="span" class="ml-3">
-          <span class="text-sm font-medium text-gray-900">Show Margins?</span>
+          <span class="text-sm font-medium text-gray-900">Design Mode</span>
         </SwitchLabel>
       </SwitchGroup>
     </div>
+    <Overlay :show="$store.state.overlayOpen"></Overlay>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -53,26 +54,27 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
-
+import Overlay from "./Overlay.vue";
 import Node from "./Node.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
     Node,
+    Overlay,
     Switch,
     SwitchGroup,
     SwitchLabel,
   },
   computed: {
-    showMargins: {
+    inDesignMode: {
       get() {
         // @ts-ignore
-        return this.$store.state.showMargins;
+        return this.$store.state.inDesignMode;
       },
       set(value) {
         // @ts-ignore
-        this.$store.commit("updateShowMargins", value);
+        this.$store.commit("updateInDesignMode", value);
       },
     },
   },

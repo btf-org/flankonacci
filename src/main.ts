@@ -9,7 +9,9 @@ import { Tree } from "./types";
 const defaultState = () => {
   return {
     tree: new Tree(),
-    showMargins: true,
+    inDesignMode: true,
+    overlayOpen: true,
+    overlayData: null,
   };
 };
 
@@ -28,14 +30,20 @@ const store = createStore({
     deleteNode(state, id: number) {
       state.tree.delete(id);
     },
-    updateShowMargins(state, value: boolean) {
-      state.showMargins = value;
+    updateInDesignMode(state, value: boolean) {
+      state.inDesignMode = value;
     },
     updateClasses(state, payload) {
       state.tree.updateClasses(payload.id, payload.classes, payload.list);
     },
     updateComponent(state, payload) {
-      state.tree.updateComponent(payload.id, payload.comp);
+      state.tree.updateComponent(payload.id, payload.comp, payload.compData);
+    },
+    updateOverlay(state, payload) {
+      state.overlayOpen = payload.open;
+      if (payload.open) {
+        state.overlayData = payload.overlayData;
+      }
     },
   },
 });

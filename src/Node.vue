@@ -1,18 +1,18 @@
 <template>
   <!-- <div
     :class="
-      [{ 'm-4': $store.state.showMargins }, 'relative'].concat(
+      [{ 'm-4': $store.state.inDesignMode }, 'relative'].concat(
         Array.from(new Set([...node.itemClasses, ...node.formattingClasses]))
       )
     "
   > -->
   <div
     :class="
-      [{ 'm-4': $store.state.showMargins }, 'relative'].concat(topLevelClasses)
+      [{ 'm-4': $store.state.inDesignMode }, 'relative'].concat(topLevelClasses)
     "
   >
     <div
-      v-if="node.depth > 0 && $store.state.showMargins"
+      v-if="node.depth > 0 && $store.state.inDesignMode"
       class="absolute top-0 right-0"
     >
       <button @click="deleteNode">
@@ -20,7 +20,7 @@
       </button>
     </div>
     <div
-      v-if="$store.state.showMargins"
+      v-if="$store.state.inDesignMode"
       :class="[
         'font-mono',
         'text-xs',
@@ -65,12 +65,17 @@
         node.comp == null &&
         node.children.length == 0 &&
         // @ts-ignore
-        $store.state.showMargins
+        $store.state.inDesignMode
       "
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
       <Dropdown @addComponent="addComponent"></Dropdown>
+    </div>
+    <div class="text-center" v-if="node.comp !== null">
+      <button @click="openOverlay(node.comp)">
+        <PencilIcon class="h-4 w-4" />
+      </button>
     </div>
     <component v-if="node.comp !== null" :is="node.comp"></component>
     <div
@@ -78,7 +83,7 @@
       :class="Array.from(node.containerClasses)"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
-      <div v-if="$store.state.showMargins" class="m-auto">
+      <div v-if="$store.state.inDesignMode" class="m-auto">
         <button @click="addChild"><PlusCircleIcon class="h-5 w-5" /></button>
       </div>
     </div>
@@ -100,6 +105,8 @@ import Dropdown from "./Dropdown.vue";
 import ExampleTable from "./ExampleTable.vue";
 import ExampleStats from "./ExampleStats.vue";
 import ExampleText from "./ExampleText.vue";
+import ExampleNavBar from "./ExampleNavBar.vue";
+import ExampleTabs from "./ExampleTabs.vue";
 
 export default defineComponent({
   name: "Node",
@@ -114,6 +121,8 @@ export default defineComponent({
     ExampleTable,
     ExampleStats,
     ExampleText,
+    ExampleNavBar,
+    ExampleTabs,
   },
   props: {
     node: {
@@ -133,7 +142,7 @@ export default defineComponent({
   computed: {
     topLevelClasses() {
       // @ts-ignore
-      if (this.$store.state.showMargins) {
+      if (this.$store.state.inDesignMode) {
         return Array.from(
           new Set([...this.node.itemClasses, ...this.node.formattingClasses])
         );
@@ -204,10 +213,27 @@ export default defineComponent({
       });
     },
     addComponent(comp: string) {
+      let compData = null;
+      if (comp == "ExampleTabs") {
+        compData = [
+          { name: "My Account", href: "#", current: false },
+          { name: "Company", href: "#", current: false },
+          { name: "Team Members", href: "#", current: true },
+          { name: "Billing", href: "#", current: false },
+        ];
+      }
       // @ts-ignore
       this.$store.commit("updateComponent", {
         id: this.node.id,
         comp: comp,
+        compData: compData,
+      });
+    },
+    openOverlay(comp: string) {
+      // @ts-ignore
+      this.$store.commit("updateOverlay", {
+        open: true,
+        compData: this.node.compData,
       });
     },
   },
