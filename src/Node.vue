@@ -78,7 +78,7 @@
       :class="Array.from(node.containerClasses)"
     >
       <Node v-for="child in node.children" :key="child.id" :node="child"></Node>
-      <div v-if="$store.state.showMargins">
+      <div v-if="$store.state.showMargins" class="m-auto">
         <button @click="addChild"><PlusCircleIcon class="h-5 w-5" /></button>
       </div>
     </div>
