@@ -36,10 +36,16 @@
     >
       <div>
         Item:
-        <button @click="allowEditing('item')" v-if="!itemEditable">
+        <button
+          @click="allowEditing('item')"
+          v-if="!itemEditable && $store.state.allowTailwindEditing"
+        >
           <PencilIcon class="h-4 w-4" />
         </button>
-        <button @click="finishEditing('item')" v-if="itemEditable">
+        <button
+          @click="finishEditing('item')"
+          v-if="itemEditable && $store.state.allowTailwindEditing"
+        >
           <CheckCircleIcon class="h-4 w-4" />
         </button>
         <input
@@ -64,15 +70,21 @@
       v-if="
         node.comp == null &&
         node.children.length == 0 &&
-        // @ts-ignore
         $store.state.inDesignMode
       "
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
-      <Dropdown class="z-20" @addComponent="addComponent"></Dropdown>
+      <Dropdown
+        v-if="$store.state.allowComponentAdding"
+        class="z-20"
+        @addComponent="addComponent"
+      ></Dropdown>
     </div>
-    <div class="text-center" v-if="node.comp !== null">
+    <div
+      v-if="$store.state.inDesignMode && $store.state.allowDataEditing"
+      class="text-center"
+    >
       <button @click="openOverlay">
         <PencilIcon class="h-4 w-4" />
       </button>

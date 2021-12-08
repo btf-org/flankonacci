@@ -10,6 +10,10 @@ const defaultState = () => {
   return {
     tree: new Tree(),
     inDesignMode: true,
+    allowTailwindEditing: true,
+    allowComponentAdding: true,
+    allowDataEditing: true,
+    staticDataEditing: true,
     overlayOpen: false,
     overlayData: null,
     overlayId: 0,
@@ -32,8 +36,12 @@ const store = createStore({
     deleteNode(state, id: number) {
       state.tree.delete(id);
     },
-    updateInDesignMode(state, value: boolean) {
-      state.inDesignMode = value;
+    // updateInDesignMode(state, value: boolean) {
+    //   state.inDesignMode = value;
+    // },
+    updateEditingMode(state, payload) {
+      // @ts-ignore
+      state[payload.var] = payload.newVal;
     },
     updateClasses(state, payload) {
       state.tree.updateClasses(payload.id, payload.classes, payload.list);
