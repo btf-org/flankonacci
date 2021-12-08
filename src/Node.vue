@@ -70,14 +70,18 @@
     >
       <button @click="addRow"><DotsHorizontalIcon class="h-5 w-5" /></button>
       <button @click="addColumn"><DotsVerticalIcon class="h-5 w-5" /></button>
-      <Dropdown @addComponent="addComponent"></Dropdown>
+      <Dropdown class="z-20" @addComponent="addComponent"></Dropdown>
     </div>
     <div class="text-center" v-if="node.comp !== null">
-      <button @click="openOverlay(node.comp)">
+      <button @click="openOverlay">
         <PencilIcon class="h-4 w-4" />
       </button>
     </div>
-    <component v-if="node.comp !== null" :is="node.comp"></component>
+    <component
+      v-if="node.comp !== null"
+      :is="node.comp"
+      :data="node.compData"
+    ></component>
     <div
       v-if="node.comp == null && node.children.length > 0"
       :class="Array.from(node.containerClasses)"
@@ -229,11 +233,12 @@ export default defineComponent({
         compData: compData,
       });
     },
-    openOverlay(comp: string) {
+    openOverlay() {
       // @ts-ignore
       this.$store.commit("updateOverlay", {
         open: true,
         compData: this.node.compData,
+        id: this.node.id,
       });
     },
   },

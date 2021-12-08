@@ -188,4 +188,10 @@ export class Tree {
     node.comp = comp;
     node.compData = compData;
   }
+  updateComponentData(id: number, compData: any): void {
+    if (id > 0) {
+      const node = this.find(id);
+      node.compData = compData;
+    }
+  }
 }

@@ -53,14 +53,30 @@
                   </div>
                 </div>
                 <div class="mt-6 relative flex-1 px-4 sm:px-6">
-                  <!-- Replace with your content -->
-                  <div class="absolute inset-0 px-4 sm:px-6">
-                    <div
-                      class="h-full border-2 border-dashed border-gray-200"
-                      aria-hidden="true"
-                    />
+                  <div>
+                    <label
+                      for="comment"
+                      class="block text-sm font-medium text-gray-700"
+                      >Add your comment</label
+                    >
+                    <div class="mt-1">
+                      <textarea
+                        rows="4"
+                        name="comment"
+                        id="comment"
+                        v-model="overlayText"
+                        class="
+                          shadow-sm
+                          focus:ring-indigo-500 focus:border-indigo-500
+                          block
+                          w-full
+                          sm:text-sm
+                          border-gray-300
+                          rounded-md
+                        "
+                      />
+                    </div>
                   </div>
-                  <!-- /End replace -->
                 </div>
               </div>
             </div>
@@ -92,12 +108,40 @@ export default {
     XIcon,
   },
   props: ["show"],
-  setup() {
-    const open = ref(true);
-
-    return {
-      open,
-    };
+  data() {
+    return { overlayText: "" };
   },
+  created() {
+    // @ts-ignore
+    this.overlayText = JSON.stringify(this.$store.state.overlayData);
+  },
+  computed: {
+    vuexOverlayData() {
+      // @ts-ignore
+      return this.$store.state.overlayData;
+    },
+  },
+  watch: {
+    overlayText: function (newVal: any) {
+      // @ts-ignore
+      this.$store.commit("updateComponentData", {
+      // @ts-ignore
+        id: this.$store.state.overlayId,
+        // @ts-ignore
+        compData: JSON.parse(newVal),
+      });
+    },
+    vuexOverlayData(newVal) {
+      // @ts-ignore
+      this.overlayText = JSON.stringify(newVal) || "";
+    },
+  },
+  //   setup() {
+  //     const open = ref(true);
+
+  //     return {
+  //       open,
+  //     };
+  //   },
 };
 </script>

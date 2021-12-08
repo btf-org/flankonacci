@@ -19,7 +19,7 @@
           rounded-md
         "
       >
-        <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
+        <option v-for="tab in data" :key="tab.name" :selected="tab.current">
           {{ tab.name }}
         </option>
       </select>
@@ -28,7 +28,7 @@
       <div class="border-b border-gray-200">
         <nav class="-mb-px flex space-x-8" aria-label="Tabs">
           <a
-            v-for="tab in tabs"
+            v-for="tab in data"
             :key="tab.name"
             :href="tab.href"
             :class="[
@@ -48,18 +48,19 @@
 </template>
 
 <script lang="ts">
-const tabs = [
-  { name: "My Account", href: "#", current: false },
-  { name: "Company", href: "#", current: false },
-  { name: "Team Members", href: "#", current: true },
-  { name: "Billing", href: "#", current: false },
-];
+// const tabs = [
+//   { name: "My Account", href: "#", current: false },
+//   { name: "Company", href: "#", current: false },
+//   { name: "Team Members", href: "#", current: true },
+//   { name: "Billing", href: "#", current: false },
+// ];
 
 export default {
-  setup() {
-    return {
-      tabs,
-    };
-  },
+  props: ["data"],
+  // setup() {
+  //   return {
+  //     tabs,
+  //   };
+  // },
 };
 </script>

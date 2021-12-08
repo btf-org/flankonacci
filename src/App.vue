@@ -45,9 +45,11 @@
           <span class="text-sm font-medium text-gray-900">Design Mode</span>
         </SwitchLabel>
       </SwitchGroup>
-      <button type="button" @click="openOverlay">Open Overlay</button>
     </div>
-    <Overlay :show="$store.state.overlayOpen" @close="closeOverlay"></Overlay>
+    <Overlay
+      :show="$store.state.overlayOpen"
+      @close="closeOverlay"
+    ></Overlay>
     <Node :node="$store.state.tree.root"></Node>
   </div>
 </template>
@@ -87,10 +89,6 @@ export default defineComponent({
       // @ts-ignore
       const html = this.$store.state.tree.exportHtml();
       alert(html);
-    },
-    openOverlay: function () {
-      // @ts-ignore
-      this.$store.commit("updateOverlay", { open: true, compData: "weeee" });
     },
     closeOverlay: function () {
       // @ts-ignore

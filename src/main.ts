@@ -12,6 +12,7 @@ const defaultState = () => {
     inDesignMode: true,
     overlayOpen: false,
     overlayData: null,
+    overlayId: 0,
   };
 };
 
@@ -42,8 +43,12 @@ const store = createStore({
     updateOverlay(state, payload) {
       state.overlayOpen = payload.open;
       if (payload.open) {
-        state.overlayData = payload.overlayData;
+        state.overlayData = payload.compData;
+        state.overlayId = payload.id;
       }
+    },
+    updateComponentData(state, payload) {
+      state.tree.updateComponentData(payload.id, payload.compData);
     },
   },
 });
