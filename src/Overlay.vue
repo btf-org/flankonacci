@@ -142,11 +142,11 @@ export default {
     this.overlayf = this.$store.state.overlayf.toString();
   },
   computed: {
-    vuexOverlayData() {
+    vuexOverlayData(): any {
       // @ts-ignore
       return this.$store.state.overlayData;
     },
-    vuexOverlayf() {
+    vuexOverlayf(): any {
       // @ts-ignore
       return this.$store.state.overlayf;
     },
@@ -161,20 +161,26 @@ export default {
         compData: JSON.parse(newVal),
       });
     },
-    vuexOverlayData(newVal) {
+    vuexOverlayData(newVal: any) {
       // @ts-ignore
       this.overlayText = JSON.stringify(newVal) || "";
     },
     overlayf: function (newVal: any) {
-      // @ts-ignore
-      this.$store.commit("updateComponentf", {
+      console.log("newVal");
+      try {
+        const payload = {
+          // @ts-ignore
+          id: this.$store.state.overlayId,
+          // @ts-ignore
+          compf: new Function("return " + newVal)(),
+        };
         // @ts-ignore
-        id: this.$store.state.overlayId,
-        // @ts-ignore
-        compf: new Function("return " + newVal)(),
-      });
+        this.$store.commit("updateComponentf", payload);
+      } catch (e) {
+        console.log(e);
+      }
     },
-    vuexOverlayf(newVal) {
+    vuexOverlayf(newVal: any) {
       // @ts-ignore
       this.overlayf = newVal.toString();
     },
