@@ -1,11 +1,4 @@
 <template>
-  <!-- <div
-    :class="
-      [{ 'm-4': $store.state.inDesignMode }, 'relative'].concat(
-        Array.from(new Set([...node.itemClasses, ...node.formattingClasses]))
-      )
-    "
-  > -->
   <div
     :class="
       [{ 'm-4': $store.state.inDesignMode }, 'relative'].concat(topLevelClasses)

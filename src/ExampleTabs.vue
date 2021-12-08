@@ -19,7 +19,7 @@
           rounded-md
         "
       >
-        <option v-for="tab in f()" :key="tab.name" :selected="tab.current">
+        <option v-for="tab in d" :key="tab.name" :selected="tab.current">
           {{ tab.name }}
         </option>
       </select>
@@ -28,7 +28,7 @@
       <div class="border-b border-gray-200">
         <nav class="-mb-px flex space-x-8" aria-label="Tabs">
           <a
-            v-for="tab in f()"
+            v-for="tab in d"
             :key="tab.name"
             :href="tab.href"
             :class="[
@@ -50,5 +50,11 @@
 <script lang="ts">
 export default {
   props: ["data", "f"],
+  computed: {
+    d(): any {
+      // @ts-ignore
+      return this.$store.state.staticDataEditing ? this.data : this.f();
+    },
+  },
 };
 </script>
