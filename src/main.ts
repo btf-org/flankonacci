@@ -13,6 +13,7 @@ const defaultState = () => {
     overlayOpen: false,
     overlayData: null,
     overlayId: 0,
+    overlayf: () => null,
   };
 };
 
@@ -38,17 +39,26 @@ const store = createStore({
       state.tree.updateClasses(payload.id, payload.classes, payload.list);
     },
     updateComponent(state, payload) {
-      state.tree.updateComponent(payload.id, payload.comp, payload.compData);
+      state.tree.updateComponent(
+        payload.id,
+        payload.comp,
+        payload.compData,
+        payload.compf
+      );
     },
     updateOverlay(state, payload) {
       state.overlayOpen = payload.open;
       if (payload.open) {
         state.overlayData = payload.compData;
+        state.overlayf = payload.compf;
         state.overlayId = payload.id;
       }
     },
     updateComponentData(state, payload) {
       state.tree.updateComponentData(payload.id, payload.compData);
+    },
+    updateComponentf(state, payload) {
+      state.tree.updateComponentf(payload.id, payload.compf);
     },
   },
 });

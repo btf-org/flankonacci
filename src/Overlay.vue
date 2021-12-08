@@ -77,6 +77,30 @@
                       />
                     </div>
                   </div>
+                  <div>
+                    <label
+                      for="comment"
+                      class="block text-sm font-medium text-gray-700"
+                      >Add your comment</label
+                    >
+                    <div class="mt-1">
+                      <textarea
+                        rows="4"
+                        name="comment"
+                        id="comment"
+                        v-model="overlayf"
+                        class="
+                          shadow-sm
+                          focus:ring-indigo-500 focus:border-indigo-500
+                          block
+                          w-full
+                          sm:text-sm
+                          border-gray-300
+                          rounded-md
+                        "
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,23 +133,29 @@ export default {
   },
   props: ["show"],
   data() {
-    return { overlayText: "" };
+    return { overlayText: "", overlayf: "" };
   },
   created() {
     // @ts-ignore
     this.overlayText = JSON.stringify(this.$store.state.overlayData);
+    // @ts-ignore
+    this.overlayf = this.$store.state.overlayf.toString();
   },
   computed: {
     vuexOverlayData() {
       // @ts-ignore
       return this.$store.state.overlayData;
     },
+    vuexOverlayf() {
+      // @ts-ignore
+      return this.$store.state.overlayf;
+    },
   },
   watch: {
     overlayText: function (newVal: any) {
       // @ts-ignore
       this.$store.commit("updateComponentData", {
-      // @ts-ignore
+        // @ts-ignore
         id: this.$store.state.overlayId,
         // @ts-ignore
         compData: JSON.parse(newVal),
@@ -134,6 +164,19 @@ export default {
     vuexOverlayData(newVal) {
       // @ts-ignore
       this.overlayText = JSON.stringify(newVal) || "";
+    },
+    overlayf: function (newVal: any) {
+      // @ts-ignore
+      this.$store.commit("updateComponentf", {
+        // @ts-ignore
+        id: this.$store.state.overlayId,
+        // @ts-ignore
+        compf: new Function("return " + newVal)(),
+      });
+    },
+    vuexOverlayf(newVal) {
+      // @ts-ignore
+      this.overlayf = newVal.toString();
     },
   },
   //   setup() {

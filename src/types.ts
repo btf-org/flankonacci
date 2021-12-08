@@ -1,3 +1,5 @@
+type func = (...args: any[]) => any;
+
 export interface node {
   containerClasses: Set<string>;
   itemClasses: Set<string>;
@@ -7,6 +9,7 @@ export interface node {
   depth: number;
   comp: any | null;
   compData: any | null;
+  compf: func;
 }
 
 export class Tree {
@@ -29,6 +32,7 @@ export class Tree {
       id: this.idCount,
       comp: null,
       compData: null,
+      compf: () => null,
     };
   }
 
@@ -129,6 +133,7 @@ export class Tree {
       depth: parent.depth + 1,
       comp: null,
       compData: null,
+      compf: () => null,
     };
     parent.children.push(newChild);
   }
@@ -183,15 +188,23 @@ export class Tree {
       node.containerClasses = new Set(classes.split(/\s+/));
     }
   }
-  updateComponent(id: number, comp: any, compData: any): void {
+  // @ts-nocheck
+  updateComponent(id: number, comp: any, compData: any, compf: func): void {
     const node = this.find(id);
     node.comp = comp;
     node.compData = compData;
+    node.compf = compf;
   }
   updateComponentData(id: number, compData: any): void {
     if (id > 0) {
       const node = this.find(id);
       node.compData = compData;
+    }
+  }
+  updateComponentf(id: number, compf: func): void {
+    if (id > 0) {
+      const node = this.find(id);
+      node.compf = compf;
     }
   }
 }

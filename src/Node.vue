@@ -81,6 +81,7 @@
       v-if="node.comp !== null"
       :is="node.comp"
       :data="node.compData"
+      :f="node.compf"
     ></component>
     <div
       v-if="node.comp == null && node.children.length > 0"
@@ -154,6 +155,9 @@ export default defineComponent({
         return Array.from(this.node.itemClasses);
       }
     },
+    compfString() {
+      return this.node.compf.toString();
+    },
   },
   watch: {
     "node.itemClasses": {
@@ -218,6 +222,7 @@ export default defineComponent({
     },
     addComponent(comp: string) {
       let compData = null;
+      let compf = null;
       if (comp == "ExampleTabs") {
         compData = [
           { name: "My Account", href: "#", current: false },
@@ -225,12 +230,21 @@ export default defineComponent({
           { name: "Team Members", href: "#", current: true },
           { name: "Billing", href: "#", current: false },
         ];
+        compf = () => {
+          return [
+            { name: "My Account", href: "#", current: false },
+            { name: "Company", href: "#", current: false },
+            { name: "Team Members", href: "#", current: true },
+            { name: "Billing", href: "#", current: false },
+          ];
+        };
       }
       // @ts-ignore
       this.$store.commit("updateComponent", {
         id: this.node.id,
         comp: comp,
         compData: compData,
+        compf: compf,
       });
     },
     openOverlay() {
@@ -238,6 +252,7 @@ export default defineComponent({
       this.$store.commit("updateOverlay", {
         open: true,
         compData: this.node.compData,
+        compf: this.node.compf,
         id: this.node.id,
       });
     },
